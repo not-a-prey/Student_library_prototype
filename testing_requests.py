@@ -36,6 +36,7 @@ def delete_textbook(textbook_id):
     else:
         print(f"Error {response.status_code}: {response.text}")
 
+# GET запит для отримання піручника за специфічним запитом
 def search_textbooks(query):
     response = requests.get(f"{BASE_URL}/search_textbooks", params={"query": query})
     if response.status_code == 200:
@@ -49,7 +50,9 @@ def search_textbooks(query):
     else:
         print(f"Error {response.status_code}: {response.text}")
 
-# Приклади використання
+# Цей файл є тестуванням можливостей серверу, правильності обробки запитів.
+# Скрипт також може використовуватись адміністратором бази даних задля внесення змін до БД.
+# Приклади використання:
 if __name__ == "__main__":
     bookies = [("Історія Науки і Техніки",
                 "Історія Науки і Техніки",
@@ -172,27 +175,29 @@ if __name__ == "__main__":
         my_dict.append(dict(zip(keys_1, bookies[i])))
 
     # Додати підручник до БД
-    #for book in my_dict:
-    #    add_textbook(book)
+    for book in my_dict:
+        add_textbook(book)
 
     # Отримати підручник за ID
-    #get_textbook_by_id(1)
+    get_textbook_by_id(1)
 
     # Отримати підручник за запитом
     search_textbooks("Структ")
-
+    search_textbooks("Комп'ютерна")
+    search_textbooks("о")
 
 
     # Оновити підручник за ID
-    #updated_data = {
-    #    "title": "Заголовок new",
-    #    "discipline": "Дисципліна new",
-    #    "description": "Опис new",
-    #    "author": "Автор new",
-    #    "download_link": "http://newlink.com",
-    #    "image_path": "path/to/image_new.jpg"
-    #}
-    #update_textbook(1, updated_data)
+    # Треба ввести існуючий шлях до обкладинки, інакше буде помилка
+    updated_data = {
+        "title": "Заголовок new",
+        "discipline": "Дисципліна new",
+        "description": "Опис new",
+        "author": "Автор new",
+        "download_link": "http://newlink.com",
+        "image_path": "path/to/image_new.jpg"
+    }
+    update_textbook(1, updated_data)
 
     # Видалити підручник за ID
-    #delete_textbook(1)
+    delete_textbook(1)
